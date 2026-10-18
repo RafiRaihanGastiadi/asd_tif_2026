@@ -1,5 +1,5 @@
 /**
- * testSinglyLinkedList
+ * testDoublyLinkedList
  */
 public class testDoublyLinkedList {
 
