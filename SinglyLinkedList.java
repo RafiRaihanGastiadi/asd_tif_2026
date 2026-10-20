@@ -1,5 +1,4 @@
 public class SinglyLinkedList implements LinkedList{
-
     public Node head,tail;
     private int size=0;
 
