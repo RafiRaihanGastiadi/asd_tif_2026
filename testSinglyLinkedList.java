@@ -1,6 +1,3 @@
-/**
- * testSinglyLinkedList
- */
 public class testSinglyLinkedList {
 
     public static void main(String[] args) {
