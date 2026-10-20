@@ -57,7 +57,7 @@ public class SinglyLinkedList implements LinkedList{
         if(isEmpty()){
             System.err.println("Linked list kosong");
         }
-        else if(size==1){//else if(head==tail)
+        else if(size==1){
             head = null;
             tail = null;
             size--;
@@ -72,7 +72,7 @@ public class SinglyLinkedList implements LinkedList{
         if(isEmpty()){
             System.err.println("Linked list kosong");
         }
-        else if(size==1){//else if(head==tail)
+        else if(size==1){
             head = null;
             tail = null;
             size--;
@@ -92,7 +92,7 @@ public class SinglyLinkedList implements LinkedList{
         if(isEmpty()){
             System.err.println("Linked list kosong");
         }
-        else if(size==1){//else if(head==tail)
+        else if(size==1){
             head = null;
             tail = null;
             size--;
@@ -116,27 +116,81 @@ public class SinglyLinkedList implements LinkedList{
     }
     @Override
     public Object get(int index) {
-        // TODO digunakan untuk mengembalikan data pada index ke-i dimulai dari head. Head memiliki index 0
-        return null;
+       if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.pointer;
+        }
+        return current.data;
     }
     @Override
     public int indexOf(Object targetData) {
-        // TODO digunakan mencari kemunculan pertama targetData pada linked list dan mengembalikan indeksnya. Indeks dari head adalah 0. Jika tidak ada targetData pada linked list, kembalikan nilai -1 
-        return 0;
+       Node current = head;
+        int index = 0;
+        while (current != null) {
+            if ((targetData == null && current.data == null) || 
+                (targetData != null && targetData.equals(current.data))) {
+                return index;
+            }
+            current = current.pointer;
+            index++;
+        }
+        return -1;
     }
     @Override
     public void printReverse() {
-        // TODO digunakan untuk mencetak data pada linked list dengan urutan terbalik, dari tail ke head.
+        printReverseHelper(head);
+        System.out.println();
+    }
+
+    private void printReverseHelper(Node current) {
+        if (current == null) {
+            return;
+        }
+        printReverseHelper(current.pointer);
+        System.out.print(current.data + (current == head ? "" : ","));
         
     }
     @Override
     public boolean remove(Object targetData) {
-        // TODO digunakan untuk mencari dan menghapus node dengan data=targetData pada linked list serta mengembalikan nilai True jika berhasil, dan False jika targetData tidak ada di linkedList
+        if (isEmpty()) {
+            return false;
+        }
+
+        // Jika data berada di head
+        if ((targetData == null && head.data == null) || 
+            (targetData != null && targetData.equals(head.data))) {
+            deleteFirst();
+            return true;
+        }
+
+        Node current = head;
+        while (current.pointer != null) {
+            if ((targetData == null && current.pointer.data == null) || 
+                (targetData != null && targetData.equals(current.pointer.data))) {
+                
+                if (current.pointer == tail) {
+                    tail = current;
+                }
+                current.pointer = current.pointer.pointer;
+                size--;
+                return true;
+            }
+            current = current.pointer;
+        }
         return false;
     }
     @Override
     public Object[] toArray() {
-        // TODO digunakan untuk mendapatkan keseluruhan data pada node-node di linked list dalam bentuk array. Data-data pada array disusun secara urut mulai dari head sampai dengan tail.
-        return null;
+      Object[] result = new Object[size];
+        Node current = head;
+        int i = 0;
+        while (current != null) {
+            result[i++] = current.data;
+            current = current.pointer;
+        }
+        return result;
     }
 }
