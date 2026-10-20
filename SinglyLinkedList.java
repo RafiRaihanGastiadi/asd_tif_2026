@@ -1,6 +1,3 @@
-/**
- * SinglyLinkedList
- */
 public class SinglyLinkedList implements LinkedList{
 
     public Node head,tail;
@@ -159,7 +156,6 @@ public class SinglyLinkedList implements LinkedList{
             return false;
         }
 
-        // Jika data berada di head
         if ((targetData == null && head.data == null) || 
             (targetData != null && targetData.equals(head.data))) {
             deleteFirst();
